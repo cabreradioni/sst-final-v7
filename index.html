@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SST Dashboard – Study Session Tracker</title>
+  <link rel="icon" href="favicon.png" />
+  <link rel="stylesheet" href="assets/styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="brand">
+      <span class="logo">📘</span>
+      <span class="title">SST Dashboard</span>
+    </div>
+
+    <nav class="menu">
+      <button class="btn nav" id="btnNavDashboard" type="button">Dashboard</button>
+      <button class="btn nav" id="btnNavHistory" type="button">History</button>
+    </nav>
+
+    <div class="sidebar-footer">
+      <button id="toggleThemeBtn" class="btn ghost" type="button">Toggle Theme</button>
+      <small>© 2025 Dioni</small>
+    </div>
+  </aside>
+
+  <main class="content">
+    <header class="page-header">
+      <h1>Study Session Tracker</h1>
+      <p>Monitor participation, performance, and engagement with precision.</p>
+    </header>
+
+    <section class="controls card">
+      <div class="controls-row">
+        <label for="sessionMinutes" class="lbl">Session Time (min):</label>
+        <input id="sessionMinutes" class="inp" type="number" min="1" value="60" />
+        <input id="studentNameInput" class="inp grow" type="text" placeholder="Enter student name" />
+        <button id="addStudentBtn" class="btn primary" type="button">+ Add Student</button>
+        <select id="studentSelect" class="sel"></select>
+        <button id="deleteStudentBtn" class="btn danger soft" type="button">🗑 Delete Student</button>
+        <button id="exportCsvBtn" class="btn soft" type="button">📥 Export CSV</button>
+        <button id="viewHistoryBtn" class="btn soft" type="button">🧾 View History</button>
+        <button id="endSessionBtn" class="btn danger" type="button">🔴 End Session</button>
+      </div>
+    </section>
+
+    <section class="timer card">
+      <h2>⏱ Session Timer</h2>
+      <div id="timerDisplay" class="timer-display">00:00:00</div>
+      <div class="timer-actions">
+        <button id="startBtn" class="btn" type="button">▶ Start</button>
+        <button id="stopBtn" class="btn" type="button">⏸ Stop</button>
+        <button id="resetBtn" class="btn" type="button">🔁 Reset</button>
+      </div>
+    </section>
+
+    <section class="students card">
+      <h2>🧑‍🏫 Students Activity</h2>
+      <div class="table-wrap">
+        <table class="table" id="studentsTable">
+          <thead>
+            <tr>
+              <th style="width:36%">Student</th>
+              <th>Participation</th>
+              <th>Responses</th>
+              <th>Chat</th>
+              <th>Total</th>
+              <th>Delete</th>
+            </tr>
+          </thead>
+          <tbody id="studentsTbody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="charts grid-2 card">
+      <div class="chart-col">
+        <h3>📊 Performance Overview</h3>
+        <div class="chart-box">
+          <canvas id="barChart"></canvas>
+        </div>
+      </div>
+      <div class="chart-col">
+        <h3>🍩 Distribution</h3>
+        <div class="chart-box">
+          <canvas id="donutChart"></canvas>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

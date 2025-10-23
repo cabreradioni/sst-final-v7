@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SST – Session History</title>
+  <link rel="icon" href="favicon.png" />
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="brand">
+      <span class="logo">📘</span>
+      <span class="title">SST Dashboard</span>
+    </div>
+    <nav class="menu">
+      <button class="btn nav" id="btnBack" type="button">Dashboard</button>
+      <button class="btn nav active" type="button">History</button>
+    </nav>
+    <div class="sidebar-footer">
+      <button id="toggleThemeBtn" class="btn ghost" type="button">Toggle Theme</button>
+      <small>© 2025 Dioni</small>
+    </div>
+  </aside>
+
+  <main class="content">
+    <header class="page-header">
+      <h1>Session History</h1>
+      <div class="row-right">
+        <button id="btnClearHistory" class="btn danger soft" type="button">🧹 Clear History</button>
+      </div>
+    </header>
+
+    <section class="card">
+      <div id="historyList" class="history-list"></div>
+    </section>
+  </main>
+
+  <script>
+    const LS_KEY = 'sst_history';
+
+    const $ = (s)=>document.querySelector(s);
+    const $$ = (s)=>document.querySelectorAll(s);
+
+    function loadLS(k, fb){ try { return JSON.parse(localStorage.getItem(k)) ?? fb; } catch { return fb; } }
+    function saveLS(k, v){ localStorage.setItem(k, JSON.stringify(v)); }
+
+    function render() {
+      const hist = loadLS(LS_KEY, []);
+      const wrap = document.getElementById('historyList');
+      wrap.innerHTML = '';
+
+      if (hist.length === 0) {
+        wrap.innerHTML = '<p class="muted">No sessions saved yet.</p>';
+        return;
+      }
+
+      hist.slice().reverse().forEach((rec, i) => {
+        const d = new Date(rec.at);
+        const minutes = Math.round((rec.durationMs || 0)/60000);
+
+        const card = document.createElement('div');
+        card.className = 'history-card';
+
+        const head = document.createElement('div');
+        head.className = 'history-head';
+        head.innerHTML = `
+          <div>
+            <strong>${d.toLocaleDateString()} ${d.toLocaleTimeString()}</strong>
+            <div class="muted">Planned: ${rec.minutesPlanned} min · Actual: ${minutes} min</div>
+          </div>
+        `;
+
+        const tblWrap = document.createElement('div');
+        tblWrap.className = 'table-wrap';
+        const tbl = document.createElement('table');
+        tbl.className = 'table small';
+        tbl.innerHTML = `
+          <thead>
+            <tr><th>Student</th><th>Participation</th><th>Responses</th><th>Chat</th><th>Total</th></tr>
+          </thead>
+          <tbody>
+            ${rec.students.map(s => `
+              <tr>
+                <td>${s.name}</td>
+                <td>${s.p}</td>
+                <td>${s.r}</td>
+                <td>${s.c}</td>
+                <td>${(s.p||0)+(s.r||0)+(s.c||0)}</td>
+              </tr>
+            `).join('')}
+          </tbody>
+        `;
+        tblWrap.appendChild(tbl);
+
+        card.append(head, tblWrap);
+        wrap.appendChild(card);
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('btnBack').addEventListener('click', ()=>location.href='index.html');
+      document.getElementById('btnClearHistory').addEventListener('click', () => {
+        if (confirm('Delete all history?')) {
+          saveLS(LS_KEY, []);
+          render();
+        }
+      });
+      document.getElementById('toggleThemeBtn')
+        .addEventListener('click', ()=>document.documentElement.classList.toggle('dark'));
+
+      render();
+    });
+  </script>
+</body>
+</html>
