@@ -4,9 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SST Dashboard</title>
-  <link rel="icon" type="image/png" href="favicon.png" />
-  <!-- ✅ Ruta corregida para estilos dentro de /assets -->
-  <link rel="stylesheet" href="assets/styles.css" />
+  <link rel="icon" type="image/png" href="./favicon.png" />
+
+  <!-- ✅ Ruta absoluta segura para Vercel -->
+  <link rel="stylesheet" href="./assets/styles.css?v=1.0.0" />
+
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
@@ -71,7 +73,7 @@
     </section>
   </div>
 
-  <!-- ✅ Scripts cargados correctamente -->
-  <script src="app.js"></script>
+  <!-- ✅ Script con ruta segura -->
+  <script src="./app.js?v=1.0.0"></script>
 </body>
 </html>
