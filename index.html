@@ -7,7 +7,7 @@
   <link rel="icon" type="image/png" href="./favicon.png" />
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-  <!-- ✅ CSS embebido (ya no depende del archivo externo) -->
+  <!-- ✅ CSS embebido: Visual idéntico en Vercel y local -->
   <style>
     body {
       margin: 0;
@@ -142,6 +142,7 @@
 </head>
 
 <body>
+  <!-- 📘 Sidebar -->
   <div class="sidebar">
     <h2>📘 SST Dashboard</h2>
     <button id="dashboardBtn">Dashboard</button>
@@ -150,6 +151,7 @@
     <footer>© 2025 Dioni</footer>
   </div>
 
+  <!-- 📊 Main Content -->
   <div class="main-content">
     <h1>Study Session Tracker</h1>
     <p>Monitor participation, performance, and engagement with precision.</p>
@@ -166,6 +168,7 @@
       <button id="endSession" class="danger">🔴 End Session</button>
     </div>
 
+    <!-- 🕒 Timer -->
     <section id="timerSection">
       <h2>⏰ Session Timer</h2>
       <div id="timerDisplay">00:00:00</div>
@@ -176,6 +179,7 @@
       </div>
     </section>
 
+    <!-- 👩‍🎓 Students Table -->
     <section id="studentsSection">
       <h2>👩‍🎓 Students Activity</h2>
       <table id="studentsTable">
@@ -193,6 +197,7 @@
       </table>
     </section>
 
+    <!-- 📈 Charts -->
     <section id="chartsSection">
       <h2>📊 Performance Overview</h2>
       <div class="charts-container">
@@ -202,6 +207,20 @@
     </section>
   </div>
 
-  <script type="module" src="/app.js?v=1.0.0"></script>
+  <!-- ✅ FIX para que Vercel ejecute app.js correctamente -->
+  <script id="mainScript" type="text/javascript">
+    fetch('./app.js?v=2.0.0')
+      .then(response => {
+        if (!response.ok) throw new Error("No se pudo cargar app.js");
+        return response.text();
+      })
+      .then(code => {
+        const script = document.createElement('script');
+        script.textContent = code;
+        document.body.appendChild(script);
+        console.log("✅ app.js cargado y ejecutado correctamente.");
+      })
+      .catch(err => console.error("Error cargando app.js:", err));
+  </script>
 </body>
 </html>
