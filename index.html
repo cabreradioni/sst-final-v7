@@ -5,11 +5,140 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SST Dashboard</title>
   <link rel="icon" type="image/png" href="./favicon.png" />
-
-  <!-- ✅ Ruta absoluta segura para Vercel -->
-  <link rel="stylesheet" href="./assets/styles.css?v=1.0.0" />
-
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- ✅ CSS embebido (ya no depende del archivo externo) -->
+  <style>
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f5f7fa;
+      color: #222;
+      display: flex;
+    }
+
+    .sidebar {
+      width: 200px;
+      background-color: #e9eef6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px 10px;
+      box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+    }
+
+    .sidebar h2 {
+      color: #003366;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .sidebar button {
+      width: 90%;
+      margin: 8px 0;
+      padding: 8px;
+      border: none;
+      border-radius: 6px;
+      background-color: white;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .sidebar button:hover {
+      background-color: #dfe8f5;
+    }
+
+    .main-content {
+      flex-grow: 1;
+      padding: 20px 40px;
+    }
+
+    h1 {
+      margin-top: 0;
+      color: #111;
+    }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .controls button {
+      border: none;
+      padding: 8px 14px;
+      border-radius: 6px;
+      background-color: #007bff;
+      color: white;
+      cursor: pointer;
+    }
+
+    .controls button:hover {
+      background-color: #0056b3;
+    }
+
+    .danger {
+      background-color: #d9534f !important;
+    }
+
+    .danger:hover {
+      background-color: #b52b27 !important;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+
+    th, td {
+      border: 1px solid #ccc;
+      text-align: center;
+      padding: 6px;
+    }
+
+    th {
+      background-color: #007bff;
+      color: white;
+    }
+
+    #timerDisplay {
+      font-size: 1.8rem;
+      font-weight: bold;
+      margin: 10px 0;
+    }
+
+    .charts-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    canvas {
+      background: white;
+      padding: 10px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      width: 45%;
+      min-height: 300px;
+    }
+
+    footer {
+      margin-top: auto;
+      font-size: 0.8rem;
+      color: #444;
+    }
+
+    @media (max-width: 768px) {
+      body { flex-direction: column; }
+      .sidebar { flex-direction: row; width: 100%; height: auto; box-shadow: none; }
+      .main-content { padding: 15px; }
+      canvas { width: 100%; }
+    }
+  </style>
 </head>
 
 <body>
@@ -73,7 +202,6 @@
     </section>
   </div>
 
-  <!-- ✅ Script con ruta segura -->
-  <script src="./app.js?v=1.0.0"></script>
+  <script src="./app.js"></script>
 </body>
 </html>
